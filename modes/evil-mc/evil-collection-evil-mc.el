@@ -55,7 +55,32 @@
   ;; https://github.com/gabesoft/evil-mc/issues/70
   (add-hook 'evil-mc-after-cursors-deleted
             (lambda ()
-              (setq evil-was-yanked-without-register t))))
+              (setq evil-was-yanked-without-register t)))
+  (evil-collection-define-key 'normal 'evil-mc-key-map
+    ";"  'docker-container-ls-popup
+          '(("grm" . evil-mc-make-all-cursors)
+                  ("gru" . evil-mc-undo-last-added-cursor)
+                  ("grq" . evil-mc-undo-all-cursors)
+                  ("grs" . evil-mc-pause-cursors)
+                  ("grr" . evil-mc-resume-cursors)
+                  ("grf" . evil-mc-make-and-goto-first-cursor)
+                  ("grl" . evil-mc-make-and-goto-last-cursor)
+                  ("grh" . evil-mc-make-cursor-here)
+                  ("grj" . evil-mc-make-cursor-move-next-line)
+                  ("grk" . evil-mc-make-cursor-move-prev-line)
+                  ("M-n" . evil-mc-make-and-goto-next-cursor)
+                  ("grN" . evil-mc-skip-and-goto-next-cursor)
+                  ("M-p" . evil-mc-make-and-goto-prev-cursor)
+                  ("grP" . evil-mc-skip-and-goto-prev-cursor)
+                  ("C-n" . evil-mc-make-and-goto-next-match)
+                  ("grn" . evil-mc-skip-and-goto-next-match)
+                  ("C-t" . evil-mc-skip-and-goto-next-match)
+                  ("C-p" . evil-mc-make-and-goto-prev-match)
+                  ("grp" . evil-mc-skip-and-goto-prev-match))))
+      (dolist (key-data keys)
+        (evil-define-key 'normal map (kbd (car key-data)) (cdr key-data))
+        (evil-define-key 'visual map (kbd (car key-data)) (cdr key-data)))
+      map)))
 
 (provide 'evil-collection-evil-mc)
 ;;; evil-collection-evil-mc.el ends here
